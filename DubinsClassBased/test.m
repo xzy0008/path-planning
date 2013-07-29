@@ -1,0 +1,65 @@
+%% test internal tangents
+clear;
+clc;
+
+circ1=ppCircle(8,26,3,false,true)
+circ2=ppCircle(-9,6,3,true,false)
+
+if (internalTangentsExist(circ1,circ2))
+    tans=internalTangents(circ1,circ2)
+else
+    disp('Internal tangents do not exist.');
+end
+
+if (externalTangentsExist(circ1,circ2))
+    tans=externalTangents(circ1,circ2)
+else
+    disp('External tangents do not exist.');
+end
+
+
+figure(1)
+clf;
+hold on;
+% draw circles
+circle3([circ1.x;circ1.y;0],circ1.radius,1000);
+circle3([circ2.x;circ2.y;0],circ2.radius,1000);
+% plot tangent points
+scatter([tans.x1_c1 tans.x1_c2 tans.x2_c1 tans.x2_c2],[tans.y1_c1 tans.y1_c2 tans.y2_c1 tans.y2_c2])
+axis equal
+
+%% test configuration functions
+config1=ppConfiguration(0,0,135*pi/180,1)
+config2=ppConfiguration(4,4,45*pi/180,1)
+config3=ppConfiguration(0,0.005,135*pi/180,1)
+config4=ppConfiguration(10,10,45*pi/180,1)
+
+configurationsEqual(config1,config2)
+configurationsEqual(config1,config3)
+
+configurationsAligned(config1,config2)
+configurationsAligned(config2,config4)
+
+%% test configuration on circle function
+
+circ1=ppCircle(0,0,3,true,true);
+config1=ppConfiguration(3,0,pi/2,1);
+configurationOnCircle(config1,circ1)
+
+
+%% test arrow plot
+config=ppConfiguration(0,0,0*pi/180,1)
+plot_arrow_angle(config.x,config.y,config.theta,3)
+axis equal
+
+%% test tangent circles
+circ1=ppCircle(2,4,3,true,true);
+circ2=ppCircle(4,10,3,true,false);
+
+% tangentCircle(circ1,circ2,true)
+
+%% test path generation function
+startCfg=ppConfiguration(0,0,0*pi/180,1);
+endCfg=ppConfiguration(6,10,180*pi/180,1);
+
+ppDubinsPathSegment(startCfg,endCfg,3,true)

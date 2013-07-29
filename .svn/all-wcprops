@@ -1,0 +1,257 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn_repos/gavlab/!svn/ver/3548/Hodo/VehicleControl/Path_Planning
+END
+configsFromPath.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/configsFromPath.m
+END
+GenerateRSPathWaypoints.m
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/GenerateRSPathWaypoints.m
+END
+Circle_Line_Intersection.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/Circle_Line_Intersection.m
+END
+concourse_path.txt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/concourse_path.txt
+END
+pathInsidePolygon.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/pathInsidePolygon.m
+END
+plot_spp.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_spp.m
+END
+RS_path_headings.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/RS_path_headings.m
+END
+donahue_path1.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/donahue_path1.txt
+END
+segmentInsidePolygon.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/segmentInsidePolygon.m
+END
+test_junk.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/test_junk.m
+END
+circularc.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/circularc.m
+END
+plan_field_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plan_field_path.m
+END
+RStoSPP.m
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/RStoSPP.m
+END
+pathCollisionFree.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/pathCollisionFree.m
+END
+plot_linetracker_path(3-9-2005).m
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_linetracker_path(3-9-2005).m
+END
+generate_path_solar_house_demo.m
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/generate_path_solar_house_demo.m
+END
+plot_linetracker_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_linetracker_path.m
+END
+LineTracker_Geometry_Calculations.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/LineTracker_Geometry_Calculations.m
+END
+segmentCollisionFree.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/segmentCollisionFree.m
+END
+testSegmentCollisionFree.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/testSegmentCollisionFree.m
+END
+Path Planning Function Reference.doc
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/Path%20Planning%20Function%20Reference.doc
+END
+path_planning_test.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/path_planning_test.m
+END
+displayPath.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/displayPath.m
+END
+WaypointsToRSPath.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/WaypointsToRSPath.m
+END
+line_arc_track.txt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/line_arc_track.txt
+END
+plot_polar_spline.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_polar_spline.m
+END
+smoothLinesWithArc.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/smoothLinesWithArc.m
+END
+plot_path_curvature.m
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_path_curvature.m
+END
+ExtendField.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/ExtendField.m
+END
+line_circle_intersection.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/line_circle_intersection.m
+END
+pathLength.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/pathLength.m
+END
+GeneratedPath.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/GeneratedPath.txt
+END
+test.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/test.txt
+END
+plot_arc.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/plot_arc.m
+END
+SolarHousePath1.txt
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/SolarHousePath1.txt
+END
+generate_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/generate_path.m
+END
+line_tracker_calculate_errors_test.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/line_tracker_calculate_errors_test.m
+END
+concourse_path_test.m
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/concourse_path_test.m
+END
+line_arc_track_gen.txt
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/line_arc_track_gen.txt
+END
+segway_path1.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/segway_path1.txt
+END
+convert_arc_path.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/convert_arc_path.m
+END
+WaypointsToRSPathold.m
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/WaypointsToRSPathold.m
+END

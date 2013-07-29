@@ -1,0 +1,88 @@
+function out = ppSegment(startEast, startNorth, endEast, endNorth, centerEast, centerNorth, ccw,speed,wait)
+%PPSEGMENT Defines a path segment object
+%   Segment of a Dubins' Path 
+%
+%	Syntax: ppSegment(startEast, startNorth, endEast, endNorth, 
+%                       centerEast, centerNorth, ccw,speed)
+%
+%	Structure:
+%		startEast - east coordinate of start of segment
+%		startNorth - north coordinate of start of segment
+%		endEast - east coordinate of end of segment
+%		endNorth - north coordinate of end of segment
+%		centerEast - east coordinate of center of arc segment
+%				   - same as startEast for line segment
+%		centerNorth - north coordinate of center of arc segment
+%				    - same as startNorth for line segment
+%		heading - orientation of vehicle at end of segment (radians
+%					measured clockwise from north)
+%		ccw - determines if an arc segment is a counterclockwise or
+%			  clockwise turn
+%			  0 = clockwise (right) turn
+%			  1 = clounterclockwise (left) turn
+%			  2 = line segment
+%		speed - desired speed to drive segment at (m/s)
+%		thetaMin - angle between north and line between center of circle
+%			and the circle startPoint???
+%		thetaMin - angle between north and line between center of circle
+%			and the circle endPoint???
+%		thetaMax - angular distance around circle = thetaMax-thetaMin
+%		length - path length (m)
+%		
+
+if (nargin==8)
+	wait=0;
+end
+
+out.startEast=startEast;
+out.startNorth=startNorth;
+out.endEast=endEast;
+out.endNorth=endNorth;
+% if line segment - center and start are the same
+if (ccw==2) % line segment
+    out.centerEast=startEast;
+    out.centerNorth=startNorth;
+else % arc segment
+    out.centerEast=centerEast;
+    out.centerNorth=centerNorth;
+end
+out.radius=0;
+out.heading=0;
+out.ccw=ccw;
+out.speed=speed;
+out.thetaMin=0;
+out.thetaMax=0;
+out.thetaTotal=0;
+
+% check to see if segment is a line segment
+if (out.ccw==2)
+	out.heading=atan2(endEast-startEast,endNorth-startNorth);
+	out.radius=sqrt((endEast-startEast)^2+(endNorth-startNorth)^2);
+	out.length=sqrt((endEast-startEast)^2+(endNorth-startNorth)^2);
+else
+	out.radius=sqrt((endEast-centerEast)^2+(endNorth-centerNorth)^2);
+	out.thetaMin=mod(atan2(startEast-centerEast,startNorth-centerNorth)+2*pi,2*pi);
+	out.thetaMax=mod(atan2(endEast-centerEast,endNorth-centerNorth)+2*pi,2*pi);
+
+	if (out.ccw==1)
+		out.heading=mod(out.thetaMax-pi/2,2*pi);
+		temp=out.thetaMin;
+		out.thetaMin=out.thetaMax;
+		out.thetaMax=temp;
+	else
+		out.heading=mod(out.thetaMax+pi/2,2*pi);
+	end
+	% check to see if there will be a wrap problem
+	% - example: theta_min = 315 degrees, theta_max=0 degrees
+	%   direction)
+	% - change 0 degrees to 360 degrees to fix
+	if (out.thetaMin>out.thetaMax)
+		out.thetaMax=out.thetaMax+2*pi;
+	end  
+	out.thetaTotal=mod(out.thetaMax-out.thetaMin+2*pi,2*pi);
+	out.length=out.thetaTotal*out.radius;
+end
+
+out.wait=wait;
+
+end

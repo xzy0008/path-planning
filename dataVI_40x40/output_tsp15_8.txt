@@ -1,0 +1,23 @@
+NAME : tsp15_8.151.tour
+COMMENT : Length = 151
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 15
+TOUR_SECTION
+1
+13
+6
+4
+10
+8
+9
+11
+12
+14
+2
+5
+3
+7
+15
+-1
+EOF

@@ -1,0 +1,53 @@
+NAME : tsp45_20.203.tour
+COMMENT : Length = 203
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 45
+TOUR_SECTION
+1
+10
+32
+9
+24
+22
+19
+6
+37
+4
+21
+5
+30
+43
+14
+18
+11
+28
+3
+16
+2
+23
+40
+13
+26
+17
+15
+45
+34
+31
+7
+12
+25
+41
+29
+27
+44
+35
+38
+42
+8
+33
+20
+39
+36
+-1
+EOF

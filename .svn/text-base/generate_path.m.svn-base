@@ -1,0 +1,129 @@
+clear;
+clc;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define border
+east=[641722.3350 641720.1494 641763.4944 641763.1581];
+north=[3606783.5306 3606854.5263 3606857.7759 3606774.6206];
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Settings
+pathSpeed=1;    % speed to run path at (m/s)
+MinRadius=5;    % min distance between passes
+Spacing=1;      % 
+Direction=1;    % 1 - run north-south
+                % 2 - run east-west
+                % 3 - run parallel to start points
+
+% calculate width of field
+%widths(1)=sqrt((north(3)-north(2))^2+(east(3)-east(2))^2);
+width=sqrt((north(4)-north(1))^2+(east(4)-east(1))^2);
+%width=widths(max(widths));
+% calculate number of passes needed
+number=floor(width/Spacing);
+
+% generate equation for line defining starting boundary
+Ms=(north(4)-north(1))/(east(4)-east(1));
+Bs=north(1)-Ms*east(1);
+% generate equation for line defining ending boundary
+Me=(north(3)-north(2))/(east(3)-east(2));
+Be=north(2)-Me*east(2);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% allocate memory for arrays
+startPoints(number).E=0;
+startPoints(number).N=0;
+endPoints(number).E=0;
+endPoints(number).N=0;
+% wE(number)=0;
+% wN(number)=0;
+% 
+% generate points along both lines at distance given in Spacing
+for i=1:number+1
+    if Direction==1
+        % Generate point on bottom (starting) line
+        % move Spacing to the east
+        startPoints(i).E=east(1)+(i-1)*Spacing;
+        % find North coordinate using equation for line (N=Ms*E+Bs)
+        startPoints(i).N=Ms*startPoints(i).E+Bs;
+
+        % Generate point on top (ending) line
+        % move Spacing to the east
+        endPoints(i).E=east(1)+(i-1)*Spacing;
+        % find North coordinate using equation for line (N=Me*E+Be)
+        endPoints(i).N=Me*endPoints(i).E+Be;
+    elseif Direction==2
+        
+    elseif Direction==3
+        
+    else
+        
+    end
+end
+
+% determine order of points based on min turn radius
+
+nextPoint=1;   % current top point
+curWaypoint=1; % current waypoint number
+for i=1:1
+    % add one line segment to path
+  % determine what side of field last point was on to pick next point
+    if (mod(i,2)==1)
+       % on bottom of field 
+       wE(curWaypoint)=startPoints(nextPoint).E;
+       wN(curWaypoint)=startPoints(nextPoint).N;
+       curWaypoint=curWaypoint+1;
+       wE(curWaypoint)=endPoints(nextPoint).E;
+       wN(curWaypoint)=endPoints(nextPoint).N;
+       curWaypoint=curWaypoint+1;
+       nextPoint=nextPoint+MinRadius+1;
+    else
+       % on top of field
+       wE(curWaypoint)=endPoints(nextPoint).E;
+       wN(curWaypoint)=endPoints(nextPoint).N;
+       curWaypoint=curWaypoint+1;
+       wE(curWaypoint)=startPoints(nextPoint).E;
+       wN(curWaypoint)=startPoints(nextPoint).N;
+       curWaypoint=curWaypoint+1;
+       nextPoint=nextPoint-MinRadius;
+    end
+    
+end
+
+figure(1);
+clf;
+hold on
+scatter(east(1),north(1),'r^');
+scatter(east(2),north(2),'b^');
+scatter(east(3),north(3),'g^');
+scatter(east(4),north(4),'k^');
+%scatter(east,north,'r^');
+scatter([startPoints.E],[startPoints.N],'g');
+scatter([endPoints.E],[endPoints.N],'b');
+hold off
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plot gnerated path
+speed=pathSpeed*ones(1,length(wE));
+
+waypoints=[wE' wN'];
+path=WaypointsToRSPath(waypoints, 15,speed);
+hold on
+scatter(east,north)
+
+axes_num=gca;
+plot_linetracker_path(path, axes_num,'RS',0,''); % draw arcs and lines that represent path
+axis equal
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Generate Path File
+% fid = fopen('c:\GeneratedPath.txt','w');
+% for i=1:length(path.heading)
+%     fprintf(fid,'%f  %f %d\r\n',path.end.E(i),path.end.N(i),path.speed(i));
+% end
+% fclose(fid);
+ 
+
+

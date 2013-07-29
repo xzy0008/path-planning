@@ -1,0 +1,13 @@
+NAME : tsp5_3.107.tour
+COMMENT : Length = 107
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 5
+TOUR_SECTION
+1
+3
+4
+2
+5
+-1
+EOF

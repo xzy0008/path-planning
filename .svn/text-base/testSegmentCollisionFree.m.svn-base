@@ -1,0 +1,48 @@
+%% test segmentCollisionFree
+clear;
+clc;
+
+%% define path
+configurations=[15 -20 0 0.75;
+                15 45 0 0.75];
+
+
+%% define obstacles
+obstaclePolygons(1)=ppPolygon([20 -5 5 28],[3 3 10 10]);
+obstaclePolygons(2)=ppPolygon([34 34 18 18], [28 26 26 28]);
+
+boundingPolygon=ppPolygon([-10 -10 50 50],[-20 50 50 -20]);
+
+%% generate collision free path
+
+origPath=configurationsToDubinsPath(configurations,3);
+colFreePath=configsToDubinsCollisionFreePath(configurations, 3, obstaclePolygons);
+
+%% generate line segment
+%testLine=ppSegment(0,0,30,30,0,0,2,1); % collides
+%testLine=ppSegment(0,0,-30,-30,0,0,2,1); % does not collide
+%testLine=ppSegment(0,0,-5,3,0,0,2,1); % vertex
+%testLine=ppSegment(0,0,5,3,0,0,2,1); % touches side
+%testLine=ppSegment(20,3,-5,3,20,3,2,1); % side
+%testLine=ppSegment(0,0,0,5,0,0,2,1); % intersects - vertical
+%testLine=ppSegment(-5,5,30,5,-5,5,2,1); % intersects - horizontal
+%% generate arc segment
+%testLine=ppSegment(0,-2,0,8,0,3,1,1);
+testLine=ppSegment(0,-2,5,3,0,3,1,1);
+%% check for collisions
+collision=segmentCollisionFree(obstaclePolygons, testLine);
+inside=segmentInsidePolygon(boundingPolygon, testLine);
+
+collision
+inside
+
+%% plot results
+figure(1);
+clf;
+
+hold on
+for ii=1:length(obstaclePolygons)
+    plotppPolygon(obstaclePolygons(ii),'r');
+end
+plotppPolygon(boundingPolygon,'k');
+plot_linetracker_path(testLine, gca, 'RS', false,'');

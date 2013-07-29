@@ -1,0 +1,10 @@
+function [ center, radius ] = minEnclosingCircle( nodes )
+%minEnclosingCircle Summary of this function goes here
+%   Detailed explanation goes here
+    n=length(nodes);
+    for i=1:n
+        x=nodes(i).dockConfiguration(1);
+        y=nodes(i).dockConfiguration(2);
+    end
+    
+end

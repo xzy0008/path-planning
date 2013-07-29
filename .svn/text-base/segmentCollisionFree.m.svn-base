@@ -1,0 +1,66 @@
+function out = segmentCollisionFree(obstaclePolygons, segment, plotResults)
+%SEGMENTCOLLISIONFREE Determines if a path segment is collision free
+%
+%   Syntax:  segmentCollisionFree(obstaclePolygons, segment)
+%       - obstaclePolygons = array of ppPolygon structures that define the
+%         obstacles
+%       - segment - ppSegment structure containing path segment to check
+%           for collisions
+%       - plotResults (optional) = determines if results of algorithm are
+%         plotted
+%
+%   Output: 
+%       returns true if no collisions occur on path, false otherwise
+%
+
+if nargin==2
+    plotResults=false;
+end
+
+out=true;
+
+%% create line or arc segment for current path segment
+if (segment.ccw==2) % line segment
+    origLine=ppLineSegment(segment.startEast,segment.startNorth, ...
+        segment.endEast,segment.endNorth);
+    
+     % check for intersections with each obstacle
+    for ii=1:length(obstaclePolygons)
+        [intersect x y] = ppPolygonIntersectsSegment(obstaclePolygons(ii), origLine);
+        % check to see if segment crosses obstacle or is completely inside
+        % it
+        if (intersect==1)||(intersect==3)
+           out=false; % collision found
+           break;
+        end
+    end % end for ii
+else % arc segment
+    origArc=ppCircularArc(segment.startEast,segment.startNorth, ...
+        segment.endEast,segment.endNorth,segment.centerEast, ...
+        segment.centerNorth,segment.ccw);
+    
+    % check for intersections with each obstacle
+    for ii=1:length(obstaclePolygons)
+        [intersect x y] = ppPolygonIntersectsArc(obstaclePolygons(ii), origArc);
+        % check to see if segment crosses obstacle or is completely inside
+        % it
+        if (intersect==1)||(intersect==3)
+           out=false; % collision found
+           break;
+        end
+    end % end for ii   
+end
+
+%% plot results
+if plotResults
+    figure(1);
+    clf;
+    hold on;
+    for ii=1:length(obstaclePolygons)
+       plotppPolygon(obstaclePolygons(ii),'r'); 
+    end
+    plot_linetracker_path(segment, gca, 'RS', false, '')   
+ 
+end
+
+end

@@ -1,0 +1,209 @@
+% WaypointsToRSPath  convert a series of waypoints into a RS Path
+%
+% Converts a series of waypoints into a Reed and Sheep's Path, which
+% consists of a series of line segments and circular arcs
+%
+% Method:
+% - fits a combination of lines and arcs to a series of waypoints by
+%   matching tangents at each endpoint
+% - will not work on all sets of waypoints, points should only be placed
+%   where the path changes (ex: a straight line should only have 2 points on
+%   it)
+% - also calculates various values such as start, end, and total angle of
+%   arcs, which is used by the error calculation function: it is included in
+%   the path structure so that it only has to be calculated once and not
+%   every time measurements are updated.
+% - ccw: determines the direction an arc is drawn - used by
+%   line_tracker_calculate_errors
+% - heading: provides vehicle orientation at endpoint
+% - centers are listed with the endpoint of the arc associated with them
+%   ex: a center at path(i) is the center for an arc from endpoint i-1 to i
+%
+% Inputs:
+% - waypoints - list of east,north coordinates to be followed
+% - max_radius - maximum radius (m) used to determine whether a segment
+%   should be a straight line or an arc
+% - speed - list of speeds to be associated with each waypoint
+%
+% Possible Improvements:
+% - use a method of filtering points or determining important points before
+%   converting to rs path
+%
+% Reference - page 41 and 81 of lab notebook
+%           - inline equations are derived in GenerateRSPathWaypoints.m
+function path = WaypointsToRSPath(waypoints, max_radius, speed)
+
+% inline functions to calculate center point and radius of arc based on
+% endpoints and beginning tangent
+a_inl=inline('1/2*(-t1*y1^2+2*t1*y1*y2-t1*x2^2+t1*x1^2-t1*y2^2-2*x1*y1+2*x1*y2)/(-y1-x2*t1+x1*t1+y2)','t1','x1','x2','y1','y2');
+b_inl=inline('1/2*(-y1^2+x2^2-2*x2*t1*y1-2*x2*x1+2*x1*t1*y1+x1^2+y2^2)/(-y1-x2*t1+x1*t1+y2)','t1','x1','x2','y1','y2');
+r_inl=inline('1/2*((x1^2+y1^2-2*x2*x1+x2^2-2*y1*y2+y2^2)^2*(t1^2+1)/(-y1-x2*t1+x1*t1+y2)^2)^(1/2)','t1','x1','x2','y1','y2');
+
+% determine index of last point
+end_point=length(waypoints);
+
+% ----------calculate initial values and alloc memory ------------------
+% endpoints are the same as given waypoints
+path.end.E=waypoints(:,1)';
+path.end.N=waypoints(:,2)';
+
+% calculate initial tangent and endpoint
+if (waypoints(1,1)-waypoints(2,1)) == 0
+    t_arc(1)=9999999;   % use really big # instead of infinity
+else
+    t_arc(1)=(waypoints(1,2)-waypoints(2,2))/(waypoints(1,1)-waypoints(2,1));
+end
+
+%t_arc(1)=(waypoints(1,2)-waypoints(2,2))/(waypoints(1,1)-waypoints(2,1));   % calculate tangent between first two points
+path.center.E(1)=waypoints(1,1);
+path.center.N(1)=waypoints(1,2);
+path.center.E(2)=waypoints(2,1);
+path.center.N(2)=waypoints(2,2);
+
+% calculate initial heading
+%path.heading(1)=atan2(waypoints(2,1)-waypoints(1,1),waypoints(2,2)-waypoints(2,1));
+path.heading(1)=mod(atan2(path.end.E(2)-path.end.E(1),path.end.N(2)-path.end.N(1))+2*pi,2*pi);
+% initial segment must be a line
+path.theta_min(1)=0;
+path.theta_max(1)=0;
+path.theta_total(1)=0;
+path.ccw(1)=2;  % ccw = 2 indicates a line segment
+path.type(1)='l';    % first segment must be a line
+path.radius(1)=inf;
+
+% loop through all waypoints and generate RS Path
+for i=2:end_point;
+    % calculate radius required to match previous tangent if section is
+    % chosen to be an arc
+
+    % make sure divide by zero does not occur in r_inline
+    if (-waypoints(i-1,2)-waypoints(i,1)*t_arc(i-1)+waypoints(i-1,1)*t_arc(i-1)+waypoints(i,2))^2==0
+        path.radius(i)=inf;
+    else
+        path.radius(i)=r_inl(t_arc(i-1),waypoints(i-1,1), waypoints(i,1),waypoints(i-1,2),waypoints(i,2));
+    end
+
+    % compare required radius to maximum radius to decide if section should
+    % be arc or line segment - if the radius of an arc between the two
+    % endpoints is very large, then it is considered a line
+    %path.radius(i)
+    if (path.radius(i)>max_radius) % segment is a line
+        % calculate tangent at end of added line segment
+        % if line is vertical, tangent is infinite (use really big number
+        %   instead)
+        if (waypoints(i,1)-waypoints(i-1,1)) == 0
+            t_arc(i)=9999999;
+        else
+            % calculate slope of line segment
+            t_arc(i)=(waypoints(i,2)-waypoints(i-1,2))/(waypoints(i,1)-waypoints(i-1,1));
+        end
+        % set arc center point to line endpoint since it is not an arc
+        % segment
+        path.center.E(i)=waypoints(i-1,1);
+        path.center.N(i)=waypoints(i-1,2);
+        path.radius(i)=sqrt((path.end.E(i)-path.center.E(i))^2+(path.end.N(i)-path.center.N(i))^2);
+        path.type(i)='l';    %segment is a line
+        path.heading(i)=path.heading(i-1);  % start and end orientations are the same for a line
+        path.theta_min(i)=0;
+        path.theta_max(i)=0;
+        path.theta_total(i)=0;
+        path.ccw(i)=2;  % ccw = 2 indicates a line segment
+
+    else    % segment is an arc
+        % fit arc to endpoints and starting tangent - see
+        % GenerateRSPathWaypoints for derivation
+        path.center.E(i)=a_inl(t_arc(i-1),waypoints(i-1,1), waypoints(i,1),waypoints(i-1,2),waypoints(i,2));
+        path.center.N(i)=b_inl(t_arc(i-1),waypoints(i-1,1), waypoints(i,1),waypoints(i-1,2),waypoints(i,2));
+        
+        % check for vertical tangent
+        % tangent to arc is -(x-a)/(y-b) if center is (a,b)
+        if (waypoints(i,2)-path.center.N(i)) == 0
+            t_arc(i)=9999999;   % use really big # instead of infinity
+        else
+            t_arc(i)=-(waypoints(i,1)-path.center.E(i))/(waypoints(i,2)-path.center.N(i));
+        end
+        path.type(i)='a';    % segment is an arc
+
+        % calculate other info needed by line tracker error calculation
+        % method:
+        %   - calculate beginning and ending angles of arc
+        %   - don't know which way arc should be drawn, ex: from theta_min
+        %     to theta_max or from theta_max to theta_min
+        %   - assume arc goes from theta_min to theta_max and check to see
+        %     if heading matches previous heading
+        %   - if not swap theta_min and theta_max
+
+        % caclulate angle from center to beginning waypoint
+        theta_min=atan2(path.end.E(i-1)-path.center.E(i),path.end.N(i-1)-path.center.N(i));
+        % calculate angle from center to ending waypoint
+        theta_max=atan2(path.end.E(i)-path.center.E(i),path.end.N(i)-path.center.N(i));
+        % check for zero angles
+        if abs(theta_min)<1e-2
+            theta_min =0;
+        end
+        if abs(theta_max)<1e-2
+            theta_max =0;
+        end
+
+
+        % change to all positive angles( 0 to 360 instead of -180 to 180)
+        theta_min=mod(theta_min+2*pi,2*pi);
+        theta_max=mod(theta_max+2*pi,2*pi);
+
+        % determine if headings agree at beginning point of arc
+        % calculate heading of arc - arc heading is perpendicular to arc
+        % beginning angle theta_min.
+        arc_heading=mod(theta_min+pi/2,2*pi);
+        
+        % check to see if angle difference is between 165 and 195 degrees, should
+        % be 180 degrees if it needs to be flipped
+        dif = abs(arc_heading-path.heading(i-1));
+        
+        if (dif>(165*pi/180))&&(dif<(195*pi/180));
+            temp=theta_min;
+            theta_min=theta_max;
+            theta_max=temp;
+            % segment was flipped
+            path.ccw(i)=1;
+            % calculate heading at end of arc
+            path.heading(i)=mod(theta_min-pi/2,2*pi);
+        else
+            % calculate heading at end of arc
+            path.heading(i)=mod(theta_max+pi/2,2*pi);   
+            % segment was not flipped
+            path.ccw(i)=0;
+        end
+
+        % check to see if there will be a wrap problem
+        % - example: theta_min = 315 degrees, theta_max=0 degrees
+        % - linspace will generate 315...310...90...0 (goes in wrong
+        %   direction)
+        % - change 0 degrees to 360 degrees to fix
+        if (theta_min>theta_max)
+            theta_max=theta_max+2*pi;
+        end
+
+        % calculate total turn angle of arc
+        theta_total=mod(theta_max-theta_min+2*pi,2*pi);    % total turn angle of arc
+
+        % calculate radius of arc
+        path.radius(i)=sqrt((path.end.E(i)-path.center.E(i))^2+(path.end.N(i)-path.center.N(i))^2);  %determine radius
+
+        % add calculated angles to path structure
+        path.theta_min(i)=theta_min;
+        path.theta_max(i)=theta_max;
+        path.theta_total(i)=theta_total;
+    end
+end
+
+% make sure speed is a vector
+test=size(speed);
+if test(1)>test(2)
+    path.speed=speed';
+else
+    path.speed=speed;
+end
+
+path.tangent=t_arc;
+
+end

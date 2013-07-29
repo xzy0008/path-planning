@@ -1,0 +1,28 @@
+NAME : tsp20_12.161.tour
+COMMENT : Length = 161
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 20
+TOUR_SECTION
+1
+9
+17
+19
+8
+14
+20
+16
+12
+5
+7
+2
+15
+18
+13
+11
+3
+4
+6
+10
+-1
+EOF

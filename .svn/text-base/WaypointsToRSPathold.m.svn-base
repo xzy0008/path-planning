@@ -1,0 +1,90 @@
+% WaypointsToRSPath  convert a series of waypoints into a RS Path
+%
+% Converts a series of waypoints into a Reed and Sheep's Path, which
+% consists of a series of line segments and circular arcs
+%
+% Method:
+% - 
+%
+% Inputs:
+% - waypoints - list of east,north coordinates to be followed
+% - max_radius - maximum radius (m) used to determine whether a segment
+%   should be a straight line or an arc
+%
+% Possible Improvements:
+% - use a method of filtering points or determining important points before
+%   converting to rs path
+%
+% Reference - page 41 and 81 of lab notebook 
+%           - inline equations are derived in GenerateRSPathWaypoints.m
+function path = WaypointsToRSPathold(waypoints, max_radius)
+
+% inline functions to calculate center point and radius of arc based on
+% endpoints and beginning tangent
+a_inl=inline('1/2*(-t1*y1^2+2*t1*y1*y2-t1*x2^2+t1*x1^2-t1*y2^2-2*x1*y1+2*x1*y2)/(-y1-x2*t1+x1*t1+y2)','t1','x1','x2','y1','y2');
+b_inl=inline('1/2*(-y1^2+x2^2-2*x2*t1*y1-2*x2*x1+2*x1*t1*y1+x1^2+y2^2)/(-y1-x2*t1+x1*t1+y2)','t1','x1','x2','y1','y2');
+r_inl=inline('1/2*((x1^2+y1^2-2*x2*x1+x2^2-2*y1*y2+y2^2)^2*(t1^2+1)/(-y1-x2*t1+x1*t1+y2)^2)^(1/2)','t1','x1','x2','y1','y2');
+
+end_point=length(waypoints)-1;      % find index of last point
+% calculate initial tangent and end point
+t_arc(1)=(waypoints(1,2)-waypoints(2,2))/(waypoints(1,1)-waypoints(2,1));   % calculate tangent between first two points
+x_arc(1)=waypoints(1,1);
+y_arc(1)=waypoints(1,2);
+% loop through all waypoints and generate RS Path
+for i=1:end_point;
+    % calculate radius required to match previous tangent if section is
+    % chosen to be an arc
+    % make sure divide by zero does not occur in r_inline
+    if (-waypoints(i,2)-waypoints(i+1,1)*t_arc(i)+waypoints(i,1)*t_arc(i)+waypoints(i+1,2))^2==0
+        r_arc(i)=inf;
+    else
+        r_arc(i)=r_inl(t_arc(i),waypoints(i,1), waypoints(i+1,1),waypoints(i,2),waypoints(i+1,2));
+    end
+
+    % compare required radius to maximum radius to decide if section should
+    % be arc or line segment
+    if (r_arc(i)>max_radius)
+        % calculate tangent at end of added line segment
+        % if line is vertical, tangent is infinite (use really big number
+        %   instead)
+        if (waypoints(i+1,1)-waypoints(i,1)) == 0
+            t_arc(i+1)=9999999;
+        else
+            % calculate slope of line segment
+            t_arc(i+1)=(waypoints(i+1,2)-waypoints(i,2))/(waypoints(i+1,1)-waypoints(i,1));
+        end
+        % set arc center point to line endpoint since it is not an arc
+        % segment
+        x_arc(i+1)=waypoints(i,1);
+        y_arc(i+1)=waypoints(i,2);
+        r_arc(i)=inf;
+    else
+        % fit arc to endpoints and starting tangent - see
+        % GenerateRSPathWaypoints for derivation
+        x_arc(i+1)=a_inl(t_arc(i),waypoints(i,1), waypoints(i+1,1),waypoints(i,2),waypoints(i+1,2));
+        y_arc(i+1)=b_inl(t_arc(i),waypoints(i,1), waypoints(i+1,1),waypoints(i,2),waypoints(i+1,2));
+        %r_arc(i)=r_inl(t_arc(i),waypoints(i,1), waypoints(i+1,1),waypoints(i,2),waypoints(i+1,2));
+
+        if (waypoints(i+1,2)-y_arc(i+1)) == 0
+            t_arc(i+1)=9999999;   % use really big # instead of infinity
+        else
+            t_arc(i+1)=-(waypoints(i+1,1)-x_arc(i+1))/(waypoints(i+1,2)-y_arc(i+1));
+        end
+
+        
+    end
+end
+
+path.end.E=waypoints(:,1);
+path.end.N=waypoints(:,2);
+% first segment must be a line segment so set first center to first
+% waypoint
+path.center.E(1)=path.end.E(1);
+path.center.N(1)=path.end.N(1);
+path.center.E=x_arc;
+path.center.N=y_arc;
+%path.heading=t_arc';
+% set speed to zero initially, maybe cahnge this later to check to see if
+% waypoints passed in have speed field and use it to set speed
+path.speed=zeros(end_point+1,1);
+end

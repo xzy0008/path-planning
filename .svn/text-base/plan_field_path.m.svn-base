@@ -1,0 +1,77 @@
+clear;
+clc;
+
+east=[641722.3350 641720.1494 641763.4944 641763.1581];
+north=[3606783.5306 3606854.5263 3606857.7759 3606774.6206];
+
+pathSpeed=0.75;
+spacing=6;
+
+width=sqrt((north(3)-north(2))^2+(east(3)-east(2))^2);
+
+number=floor(width/spacing);
+
+% 1st two waypoints are first two field corners
+wE(1)=east(1);
+wE(2)=east(2);
+wN(1)=north(1);
+wN(2)=north(2);
+
+j=3;
+
+for i=1:number
+    
+    if (mod(i,2)==0)
+        north2=wN(j-1);
+        east2=wE(j-1);
+        north1=wN(j-2);
+        east1=wE(j-2);
+        theta=atan2((north1-north2),(east1-east2));
+        dx=spacing*sin(theta);
+        dy=spacing*cos(theta);
+        wE(j)=east2+dx;
+        wN(j)=north2-dy;
+        j=j+1;
+        
+        wE(j)=east1+dx;
+        wN(j)=north1+dy;
+        j=j+1;
+        
+    else
+        north2=wN(j-1);
+        east2=wE(j-1);
+        north1=wN(j-2);
+        east1=wE(j-2);
+        theta=atan2((north2-north1),(east2-east1));
+        dx=spacing*sin(theta);
+        dy=spacing*cos(theta);
+        wE(j)=east2+dx;
+        wN(j)=north2+dy;
+        j=j+1;
+
+        wE(j)=east1+dx;
+        wN(j)=north1-dy;
+        j=j+1;
+
+    end
+    
+end
+
+speed=pathSpeed*ones(1,length(wE));
+
+waypoints=[wE' wN'];
+path=WaypointsToRSPath(waypoints, 15,speed);
+
+scatter(east,north,'r^')
+%figure();
+axes_num=gca;
+plot_linetracker_path(path, axes_num,'RS',0,''); % draw arcs and lines that represent path
+axis equal
+
+
+% fid = fopen('c:\GeneratedPath.txt','w');
+% for i=1:length(path.heading)
+%     fprintf(fid,'%f %f %f\r\n',path.end.E(i),path.end.N(i),path.speed(i));
+% end
+% fclose(fid);
+ 

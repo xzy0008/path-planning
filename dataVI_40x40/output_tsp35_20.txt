@@ -1,0 +1,43 @@
+NAME : tsp35_20.199.tour
+COMMENT : Length = 199
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 35
+TOUR_SECTION
+1
+16
+32
+30
+17
+3
+19
+15
+29
+20
+14
+27
+11
+25
+13
+31
+7
+35
+8
+4
+28
+6
+12
+2
+9
+10
+23
+18
+22
+21
+26
+34
+33
+5
+24
+-1
+EOF

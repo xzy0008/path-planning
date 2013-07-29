@@ -1,0 +1,58 @@
+NAME : tsp50_30.226.tour
+COMMENT : Length = 226
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 50
+TOUR_SECTION
+1
+24
+48
+21
+50
+47
+30
+39
+27
+4
+38
+15
+13
+31
+3
+20
+16
+43
+46
+8
+2
+49
+9
+42
+44
+14
+28
+34
+26
+19
+18
+11
+36
+22
+6
+33
+12
+35
+23
+5
+25
+37
+41
+7
+17
+10
+32
+45
+40
+29
+-1
+EOF

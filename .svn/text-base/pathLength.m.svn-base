@@ -1,0 +1,17 @@
+function out = pathLength(path)
+%PATHLENGTH calculates the length of a Dubins path
+%	
+%   Syntax:   pathLength(path)
+%       - testPath - vector of ppSegment structures containing path 
+%
+%   Output: 
+%       length of path
+%
+
+out=0;
+
+for ii=1:length(path)
+	out=out+path(ii).length;
+end
+
+end

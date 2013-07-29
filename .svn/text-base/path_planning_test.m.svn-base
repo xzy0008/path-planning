@@ -1,0 +1,114 @@
+%% script to test path generation code
+
+% load waypoints
+%data=load('H:\Documents\GAVLab\VehicleControl\Simulation_System\Paths\NCAT_will.txt');
+%data=load('H:\Documents\GAVLab\VehicleControl\Simulation_System\Paths\video_path.txt') ;
+%data=load('H:\Documents\GAVLab\VehicleControl\Simulation_System\Paths\darpa_waypoints.dat');
+data=load('line_arc_track.txt');
+%data=load('H:\Documents\GAVLab\VehicleControl\Simulation_System\Paths\constant_arc_path.txt');
+%data=load('H:\Documents\GAVLab\VehicleControl\Simulation_System\Paths\constant_line_path.txt');
+waypoints=[data(:,1),data(:,2)];
+speed=ones(length(data(:,1)))*0.75;
+% generate rs path from waypoints
+rspath=WaypointsToRSPath(waypoints, 13,speed);
+
+% plot generated path
+plot_linetracker_path(rspath,gca,'RS',0,'');
+
+%% plot test arc and spp
+R=1;
+turn_angle=150;
+start_angle=-90;
+beta=0.9;
+x=0;
+y=0;
+handle=gca;
+plot_arc(R,start_angle*pi/180, turn_angle*pi/180,x,y,handle,'--r');
+plot_spp(R,start_angle*pi/180, turn_angle*pi/180,x,y,handle,'');
+%plot_polar_spline(R,beta,start_angle*pi/180, turn_angle*pi/180,x,y,handle,'c');
+hold on
+% plot(0,0,'or');
+% plot([0 0], [-1 1],'g')
+% plot([-1 1],[0 0],'g')
+% axis([-1.5 1.5 -1.5 1.5]);
+axis equal;
+grid on
+hold off
+
+%% Load path information
+data=load('line_arc_track.txt');
+path2.end.E=data(:,1);
+path2.end.N=data(:,2);
+path2.center.E=data(:,3);
+path2.center.N=data(:,4);
+path2.speed=data(:,5);
+temp=gca;
+%plot_linetracker_path(path2,temp,'RS', 0, '--r');
+%plot_linetracker_path(path2,temp,'SPP', 0, '');
+figure
+temp=gca;
+plot_path_curvature(path2,temp,'RS', '--r');
+plot_path_curvature(path2,temp,'SPP','');
+
+%----------------------------------------------------
+
+%% test to get structure set right for path generation
+%----------------------------------------------------
+% Load path information
+clear;
+data=load('line_arc_track.txt');
+
+% load path directly
+path.end.E=data(:,1);
+path.end.N=data(:,2);
+path.center.E=data(:,3);
+path.center.N=data(:,4);
+path.speed=data(:,5);
+path=RS_path_headings(path);
+temp=gca;
+plot_linetracker_path(path,temp,'RS', 0, 'r');
+
+% load path from waypoints
+% calculate path 
+waypoints=[data(:,1),data(:,2)];
+% generate rs path from waypoints
+path2=WaypointsToRSPath(waypoints, 60);
+% generate endpoint headings and directions for arcs
+path2=RS_path_headings(path2);
+plot_linetracker_path(path2,temp,'SPP', 0, 'b');
+
+%----------------------------------------------------
+% Load path information
+MODE='SPP';
+data=load('line_arc_track.txt');
+waypoints=[data(:,1),data(:,2)];
+% generate rs path from waypoints
+path=WaypointsToRSPath(waypoints, 60,data(:,5));
+
+
+%% test building segway path
+
+%----------------------------------------------------
+% Load path information
+MODE='SPP';
+data=load('concourse_path.txt');
+waypoints=[data(:,1),data(:,2)];
+
+% generate rs path from waypoints
+path2=WaypointsToRSPath(waypoints, 60,data(:,3));
+
+% generate endpoint headings and directions for arcs
+path=WaypointsToRSPathold(waypoints,60);
+path=RS_path_headings(path);
+path.speed=data(:,3)';
+%----------------------------------------------------
+
+% generate figure to show output
+figure(1);
+axes_num=gca;
+plot_linetracker_path(path, axes_num,MODE,0,''); % draw arcs and lines that represent path
+plot_linetracker_path(path2, axes_num,MODE,0,'r'); % draw arcs and lines that represent path
+figure(2);
+axes_num=gca;
+plot_path_curvature(path, axes_num,MODE,''); % draw arcs and lines that represent path
+axis equal

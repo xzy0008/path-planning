@@ -1,0 +1,49 @@
+% RStoSPP  convert a Reeds and Shepp's Path to a SPP path
+%
+% Converts a Reed's and Shepp's Path consisting of line segments and
+% circular arcs to a continuous curvature path made up of single-polar
+% polynomial (SPP) curves and polar splines as defined by Winston Nelson in
+% "Continuous-Curvature Paths for Autonomous Vehicles"
+%
+% Method:
+% - if a circular arc in the RSPath makes less than a 90 degree turn, then
+%   it is replaces by a single polar polynomial
+% - if a circular arc in the RSPath makes greater than a 90 degree turn,
+%   then it if replaced by a polar spline
+%
+% Inputs:
+% - RSPath - a data structure containing an RSPath
+
+function out = RStoSPP(RSPath, beta)
+
+for i=2:length(path.end.E)
+    % determine if points describe line or arc
+    %   - section if a line if the beginning waypoint and center are the
+    %     same point (or very close)
+    %   - a section is an arc if the beginning waypoint and center are not he same point
+    if ((abs(path.end.E(i-1)-path.center.E(i))<0.01)&(abs(path.end.N(i-1)-path.center.N(i))>0.01))
+        % section is an arc
+
+        R=sqrt((path.end.E(i)-path.center.E(i))^2+(path.end.N(i)-path.center.N(i))^2);  %determine radius
+
+        % calculate angle from center to beginning waypoint
+        theta_min=atan2(path.end.E(i-1)-path.center.E(i),path.end.N(i-1)-path.center.N(i));
+        % calculate angle from center to ending waypoint
+        theta_max=atan2(path.end.E(i)-path.center.E(i),path.end.N(i)-path.center.N(i));
+        % change to all positive angles( 0 to 360 instead of -180 to 180)
+        theta_min=mod(theta_min+2*pi,2*pi);
+        theta_max=mod(theta_max+2*pi,2*pi);
+
+        % determine if turn made by arc is more or less than 90 degrees
+        if abs(theta_max-theta_min)<90
+            % generate SPP curve
+
+        else
+            % generate polar spline
+
+        end
+
+    end
+end
+
+end

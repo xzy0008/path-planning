@@ -1,0 +1,53 @@
+clear;
+clc;
+
+d=1;
+% southeast northeast northwest southwest
+east=[402774.2076 402768.8894 402808.2413 402813.5052];
+north=[4369595.925 4369624.464 4369631.767 4369603.24];
+
+east=[0 50 40 0];
+north=[0 5 50 65];
+
+
+course1=atan2(east(3)-east(4),north(3)-north(4));
+course2=atan2(east(1)-east(4),north(1)-north(4));
+
+course1*180/pi
+course2*180/pi
+
+newEast(1)=east(3)+d*sin(course1);
+newEast(2)=east(2)+d*sin(course1);
+newEast(3)=east(2)+d*sin(course2);
+newEast(4)=east(1)+d*sin(course2);
+newEast(5)=east(1)+d*sin(-course1);
+newEast(6)=east(4)+d*sin(-course1);
+newEast(7)=east(4)+d*sin(-course2);
+newEast(8)=east(3)+d*sin(-course2);
+newEast(9)=newEast(2)+d*sin(course2);
+newEast(10)=newEast(5)+d*sin(course2);
+newEast(11)=newEast(6)+d*sin(-course2);
+newEast(12)=newEast(1)+d*sin(-course2);
+
+
+newNorth(1)=north(3)+d*cos(course1);
+newNorth(2)=north(2)+d*cos(course1);
+newNorth(3)=north(2)+d*cos(course2);
+newNorth(4)=north(1)+d*cos(course2);
+newNorth(5)=north(1)-d*cos(-course1);
+newNorth(6)=north(4)-d*cos(-course1);
+newNorth(7)=north(4)+d*cos(course2);
+newNorth(8)=north(3)+d*cos(course2);
+newNorth(9)=newNorth(2)+d*cos(course2);
+newNorth(10)=newNorth(5)+d*cos(-course2);
+newNorth(11)=newNorth(6)+d*cos(-course2);
+newNorth(12)=newNorth(1)+d*cos(course2);
+
+
+% plot corners
+figure(1);
+clf;
+
+plot(newEast,newNorth,'s');
+hold on
+plot(east,north,'r^')

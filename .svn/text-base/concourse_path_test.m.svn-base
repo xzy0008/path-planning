@@ -1,0 +1,34 @@
+%----------------------------------------------------
+% Load path information
+MODE='RS';
+
+data=load('SolarHousePath1.txt');
+%data=load('segway_path1.txt');
+%data=load('line_arc_track.txt');
+waypoints=[data(:,1),data(:,2)];
+
+% generate rs path from waypoints
+path=WaypointsToRSPath(waypoints, 15,data(:,3));
+
+% generate endpoint headings and directions for arcs
+% path=WaypointsToRSPathold(waypoints,60);
+% path=RS_path_headings(path);
+% path.speed=data(:,3)';
+%----------------------------------------------------
+%scatter(east,north)
+%figure();
+axes_num=gca;
+plot_linetracker_path(path, axes_num,MODE,0,''); % draw arcs and lines that represent path
+axis equal
+% hold on
+% scatter(concourse2_east,concourse2_north,'r')
+% east1=641925.5754;
+% north1=3607003.7142;
+% east2=641856.0114;
+% north2=3606992.8314;
+
+% theta=acos((north2-north1)/(east2-east1));
+% dx=5*cos(theta);
+% dy=5*sin(theta);
+% x=east2+dx;
+% y=north2-dy;

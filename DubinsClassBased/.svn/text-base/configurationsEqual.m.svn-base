@@ -1,0 +1,32 @@
+function out=configurationsEqual(config1, config2)
+%CONFIGURATIONSEQUAL determine if two configurations are equal ( or almost
+%equal)
+%
+%   tangentCircleExists(config, circle)
+%       - config1 = 1st configuration
+%       - config2 = 2nd configuration
+%
+% written by: David Hodo - 2006 - hododav@auburn.edu
+
+d=sqrt((config2.x-config1.x)^2+(config2.y-config1.y)^2);
+
+% see if distance is almost zero
+if (d<0.01)
+   if (abs(CheckWrap(config2.theta-config1.theta))<0.01)
+       out=true;
+   else
+       out=false;
+   end
+else
+    out=false;
+end
+
+
+end
+% 
+% // deux configurations sont-elles egales ?
+% bool configuration_equal (SMT_Configuration q1, 
+% 			  SMT_Configuration q2) {
+%   if ( configuration_distance (q1, q2) < get_epsilon () )
+%     if ( fabs (q2.theta - q1.theta) < get_epsilon () ) { return true; }
+%   return false;

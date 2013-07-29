@@ -1,0 +1,48 @@
+NAME : tsp40_23.196.tour
+COMMENT : Length = 196
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 40
+TOUR_SECTION
+1
+21
+8
+27
+17
+29
+7
+4
+38
+19
+6
+3
+32
+30
+28
+24
+9
+18
+13
+10
+37
+26
+22
+12
+15
+2
+34
+33
+23
+35
+20
+40
+25
+31
+39
+16
+11
+5
+14
+36
+-1
+EOF

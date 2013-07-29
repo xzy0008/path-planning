@@ -1,0 +1,53 @@
+NAME : tsp45_11.224.tour
+COMMENT : Length = 224
+COMMENT : Found by LKH [Keld Helsgaun]
+TYPE : TOUR
+DIMENSION : 45
+TOUR_SECTION
+1
+31
+35
+3
+24
+28
+2
+13
+44
+45
+12
+33
+36
+40
+32
+34
+15
+21
+27
+16
+43
+5
+4
+42
+22
+10
+9
+7
+11
+26
+23
+30
+20
+17
+6
+25
+37
+19
+29
+8
+14
+41
+18
+38
+39
+-1
+EOF

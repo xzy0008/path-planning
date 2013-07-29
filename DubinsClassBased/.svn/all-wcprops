@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn_repos/gavlab/!svn/ver/3548/Hodo/VehicleControl/Path_Planning/DubinsClassBased
+END
+configurationOnCircle.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/configurationOnCircle.m
+END
+externalTangents.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/externalTangents.m
+END
+crazyPath.txt
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/crazyPath.txt
+END
+dubinsAdmissableTangent.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/dubinsAdmissableTangent.m
+END
+internalTangentsExist.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/internalTangentsExist.m
+END
+line_circle_intersection.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/line_circle_intersection.m
+END
+plotppCircle.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/plotppCircle.m
+END
+turnDistance.m
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/turnDistance.m
+END
+externalTangentsExist.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/externalTangentsExist.m
+END
+SolarHousePath1.txt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/SolarHousePath1.txt
+END
+circularc.m
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/circularc.m
+END
+testPathGeneration.m
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/testPathGeneration.m
+END
+configurationsAligned.m
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/configurationsAligned.m
+END
+test.m
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/test.m
+END
+configurationsToDubinsPath.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn_repos/gavlab/!svn/ver/3548/Hodo/VehicleControl/Path_Planning/DubinsClassBased/configurationsToDubinsPath.m
+END
+internalTangents.m
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/internalTangents.m
+END
+configurationsEqual.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/configurationsEqual.m
+END
+tangentCircle.m
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/tangentCircle.m
+END
+tangentCircleExists.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn_repos/gavlab/!svn/ver/2845/Hodo/VehicleControl/Path_Planning/DubinsClassBased/tangentCircleExists.m
+END
