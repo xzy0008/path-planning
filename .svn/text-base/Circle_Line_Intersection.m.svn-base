@@ -1,8 +1,0 @@
-%----------------------------------------------------------------
-% calculates points of intersection between a line and a circle
-function out=Circle_Line_Intersection(h,k,psi,r,x,y)
-point_x=inline(['[-1./2./(tan(psi).^2+1).*(2.*tan(psi).*x1-2.*tan(psi).*h+2.*k.*tan(psi).^2+2.*y1+2.*(2.*tan(psi).^3.*k.*x1-2.*tan(psi).^3.*y1.*x1+2.*h.*tan(psi).^3.*y1-2.*h.*tan(psi).^3.*k+r.^2.*tan(psi).^2+2.*k.*y1.*tan(psi).^2-h.^2.*tan(psi).^4-k.^2.*tan(psi).^2+tan(psi).^4.*r.^2-y1.^2.*tan(psi).^2+2.*tan(psi).^4.*h.*x1-tan(psi).^4.*x1.^2).^(1./2)).*cot(psi)+y1.*cot(psi)+x1 ;-1./2./(tan(psi).^2+1).*(2.*tan(psi).*x1-2.*tan(psi).*h+2.*k.*tan(psi).^2+2.*y1-2.*(2.*tan(psi).^3.*k.*x1-2.*tan(psi).^3.*y1.*x1+2.*h.*tan(psi).^3.*y1-2.*h.*tan(psi).^3.*k+r.^2.*tan(psi).^2+2.*k.*y1.*tan(psi).^2-h.^2.*tan(psi).^4-k.^2.*tan(psi).^2+tan(psi).^4.*r.^2-y1.^2.*tan(psi).^2+2.*tan(psi).^4.*h.*x1-tan(psi).^4.*x1.^2).^(1./2)).*cot(psi)+y1.*cot(psi)+x1 ]']);
-point_y=inline(['[1./2./(tan(psi).^2+1).*(2.*tan(psi).*x1-2.*tan(psi).*h+2.*k.*tan(psi).^2+2.*y1+2.*(2.*tan(psi).^3.*k.*x1-2.*tan(psi).^3.*y1.*x1+2.*h.*tan(psi).^3.*y1-2.*h.*tan(psi).^3.*k+r.^2.*tan(psi).^2+2.*k.*y1.*tan(psi).^2-h.^2.*tan(psi).^4-k.^2.*tan(psi).^2+tan(psi).^4.*r.^2-y1.^2.*tan(psi).^2+2.*tan(psi).^4.*h.*x1-tan(psi).^4.*x1.^2).^(1./2)) ;1./2./(tan(psi).^2+1).*(2.*tan(psi).*x1-2.*tan(psi).*h+2.*k.*tan(psi).^2+2.*y1-2.*(2.*tan(psi).^3.*k.*x1-2.*tan(psi).^3.*y1.*x1+2.*h.*tan(psi).^3.*y1-2.*h.*tan(psi).^3.*k+r.^2.*tan(psi).^2+2.*k.*y1.*tan(psi).^2-h.^2.*tan(psi).^4-k.^2.*tan(psi).^2+tan(psi).^4.*r.^2-y1.^2.*tan(psi).^2+2.*tan(psi).^4.*h.*x1-tan(psi).^4.*x1.^2).^(1./2))]']);
-out.x=point_x(h,k,psi,r,x,y);
-out.y=point_y(h,k,psi,r,x,y);
-end

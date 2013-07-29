@@ -1,7 +1,0 @@
-function displayPath(filename,radius,type)
-    % Displays a path
-    data=load(filename);
-    tempPath=configurationsToDubinsPath(data,radius);
-    figure();
-    plot_linetracker_path(tempPath,gca,type,false,'');
-end
