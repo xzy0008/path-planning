@@ -5,12 +5,12 @@ north_start=3606773.38784639+20;
 
 dir='../dataVI_40x40/';
 
-turn_radius=4;
+turn_radius=2;
 sensor_radius=0.9;
 delta=0.001;
 converges=[];
 
-pre = 10;
+pre = 50;
 dix = 18;
 %%read tsp points
 filename = sprintf('%stsp%d_%d.tmp',dir, pre, dix);
@@ -52,6 +52,9 @@ nodes=minEntryAreas(nodes);
 nodes=alternateIterativeAlgorithm(nodes, delta, 0);
 %assign headings for entry points
 nodes=alternatingAlgorithm(nodes,turn_radius);
+%prm and dijkstra
+nodes=prmDijkstra(nodes,turn_radius,2);
+
 
 %% generate rs path from waypoints
 totallength=0;
@@ -73,6 +76,7 @@ else %line path
                 +(nodes(i+1).dockConfiguration(2)-nodes(i).dockConfiguration(2))^2);
     end
 end
+totallength
 converges=[converges totallength];
 
 %draw dock points
