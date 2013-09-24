@@ -89,7 +89,9 @@ function out = prmDijkstra( nodes, turn_radius, samples_per_node )
     for ii=1:m-1
         for jj=1:n
             for kk=1:n
-                dubinsPath=configurationsToDubinsPath([samples((ii-1)*n+jj,:); samples(ii*n+kk,:)], turn_radius);
+                dubinsPath=configurationsToDubinsPath(...
+                    [samples((ii-1)*n+jj,:); samples(ii*n+kk,:)],...
+                    turn_radius);
                 len=0;
                 for i=1:length(dubinsPath)
                     len=len+dubinsPath(i).length;
@@ -102,7 +104,8 @@ function out = prmDijkstra( nodes, turn_radius, samples_per_node )
     [costs,paths] = dijkstra(V,E3,1:n,(m-1)*n+1:m*n, 1);
     
     costs_diag=diag(costs);
-    paths_diag=diag(paths);
+    %paths_diag=diag(paths);
+    paths_diag=paths(1:size(paths,1)+1:end);
     
     [min_length,index_pos]=min(costs_diag);
     path_index=paths_diag(index_pos);

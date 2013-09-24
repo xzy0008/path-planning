@@ -6,7 +6,7 @@ north_start=3606773.38784639+20;
 dir='../dataVI_40x40/';
 
 turn_radius=2;
-sensor_radius=0.9;
+sensor_radius=1;
 delta=0.001;
 converges=[];
 
