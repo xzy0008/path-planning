@@ -71,7 +71,7 @@ end
 %%depot position 
 
 hasdepot=false; %whether or not display the depot
-isfixed=true; %whether or not the start and end are fixed
+isfixed=false; %whether or not the start and end are fixed
 
 depot.startPoint.x=30;
 depot.startPoint.y=-10;
@@ -89,10 +89,10 @@ cost(numVirPasses,numVirPasses)=2147483647;
 %% for specific start point and end point use
 %for example start:1, end:numVirPasses-2
 if isfixed
-    cost(numVirPasses,:)=21474;
-    cost(:,numVirPasses)=21474;
-    cost(numVirPasses,1)=-0;
-    cost(numVirPasses-1,numVirPasses)=-0;
+    cost(numVirPasses,:)=2147;
+    cost(:,numVirPasses)=2147;
+    cost(numVirPasses,2)=0;
+    cost(numVirPasses-1,numVirPasses)=0;
 else
     cost(numVirPasses,1:end-1)=0;
     cost(1:end-1,numVirPasses)=0;

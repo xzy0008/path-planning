@@ -31,7 +31,7 @@ function totalLength=ppSurveyPathPolygon(boundingPolygon, startDirection, minRad
 %   1-----------------------4
 %
 
-clc;
+clc;clear;close;
 
 %% check input arguments
 
