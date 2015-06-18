@@ -18,11 +18,10 @@
 int main(int argc, char const *argv[])
 {
   FILE *fp;
-  char str[] = "htis is a turoialsdf.com";
+  char str[] = "this is a tutorial";
 
-  fp = fopen("file.txt", "w");
-  fwrite(str, 1, sizeof(str), fp);
- 
+
+  fwrite(str, 2, sizeof(str)/2, fp);
   fclose(fp);
   return 0;
 }
