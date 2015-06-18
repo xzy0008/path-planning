@@ -18,10 +18,10 @@
 int main(int argc, char const *argv[])
 {
   FILE *fp;
-  char str[] = "this is a tutorial";
+  char str[] = "this is tutorial";
 
 
-  fwrite(str, 2, sizeof(str)/2, fp);
+  fwrite(str, 1, sizeof(str), fp);
   fclose(fp);
   return 0;
 }
